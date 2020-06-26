@@ -20,6 +20,7 @@ const (
 
 func main() {
 	port := flag.String("port", "", "the port number to listen to, eg. -port 502")
+	printBinary := flag.Bool("printBinary", false, "set to true to also print the binary representation of the output")
 	flag.Parse()
 
 	if *port == "" {
@@ -78,6 +79,10 @@ func main() {
 			}
 
 			fmt.Printf("%v\n\n", string(appLayer.Payload()))
+
+			if *printBinary {
+				fmt.Printf("%v\n\n", appLayer.Payload())
+			}
 		}
 	}
 }
