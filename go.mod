@@ -2,4 +2,4 @@ module github.com/RaaLabs/ippayload
 
 go 1.14
 
-require github.com/google/gopacket v1.1.17 // indirect
+require github.com/google/gopacket v1.1.17

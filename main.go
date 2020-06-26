@@ -16,7 +16,6 @@ const (
 	snapLen = int32(1600)
 	promisc = false
 	timeout = pcap.BlockForever
-	filter  = "tcp and port 502"
 )
 
 func main() {
@@ -26,6 +25,8 @@ func main() {
 	if *port == "" {
 		log.Println("error: you need to provide a port with the -port flag")
 	}
+
+	filter := "port " + *port
 
 	if os.Getgid() != 0 {
 		log.Println("error: Need root privileges")
