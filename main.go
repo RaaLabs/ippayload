@@ -74,10 +74,10 @@ func main() {
 			ipLayer := packet.Layer(layers.LayerTypeIPv4)
 			if ipLayer != nil {
 				ip, _ := ipLayer.(*layers.IPv4)
-				fmt.Printf("src:%v -> dts:%v\n ", ip.SrcIP, ip.DstIP)
+				fmt.Printf("--- src:%v -> dts:%v ---\n ", ip.SrcIP, ip.DstIP)
 			}
 
-			fmt.Printf("content: %v\n", string(appLayer.Payload()))
+			fmt.Printf("%v\n\n", string(appLayer.Payload()))
 		}
 	}
 }
