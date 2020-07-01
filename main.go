@@ -68,14 +68,21 @@ func main() {
 	// gopacket.NetPacketSource will return a channel that we range over
 	src := gopacket.NewPacketSource(handle, handle.LinkType())
 	for packet := range src.Packets() {
-		// fmt.Printf("%+v\n", packet)
+		//fmt.Printf("%+v\n", packet)
+		var proto string
+		if lt := packet.Layer(layers.LayerTypeTCP); lt != nil {
+			proto = "tcp"
+		}
+		if lt := packet.Layer(layers.LayerTypeUDP); lt != nil {
+			proto = "udp"
+		}
 
 		appLayer := packet.ApplicationLayer()
 		if appLayer != nil {
 			ipLayer := packet.Layer(layers.LayerTypeIPv4)
 			if ipLayer != nil {
 				ip, _ := ipLayer.(*layers.IPv4)
-				fmt.Printf("--- src:%v -> dts:%v ---\n ", ip.SrcIP, ip.DstIP)
+				fmt.Printf("--- src:%v -> dts:%v, proto:%v ---\n ", ip.SrcIP, ip.DstIP, proto)
 			}
 
 			fmt.Printf("%v\n\n", string(appLayer.Payload()))
